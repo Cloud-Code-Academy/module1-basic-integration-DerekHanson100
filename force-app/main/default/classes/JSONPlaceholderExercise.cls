@@ -10,12 +10,18 @@ public class JSONPlaceholderExercise {
     public static String getPostById(Integer postId) {
         // TODO: Student Implementation
         // 1. Create a new HTTP request
+        HttpRequest req = new HttpRequest();
         // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId
+        req.setEndpoint(BASE_URL + '/posts/' + postId);
         // 3. Set the HTTP method to 'GET'
+        req.setMethod('GET');
         // 4. Send the request and get the response
+        Http h = new Http();
+        HttpResponse res = h.send(req);
         // 5. Return the response body as string
-        return null;
-    }
+        
+        return res.getBody();
+        }
     
     /**
      * Exercise 2: Implement a POST request to create a new post
@@ -28,13 +34,26 @@ public class JSONPlaceholderExercise {
     public static String createPost(String title, String body, Integer userId) {
         // TODO: Student Implementation
         // 1. Create a new HTTP request
+        HttpRequest req = new HttpRequest();
         // 2. Set the endpoint URL using BASE_URL + '/posts'
+        req.setEndpoint(BASE_URL + '/posts');
         // 3. Set the HTTP method to 'POST'
+        req.setMethod('POST');
         // 4. Create a JSON string with the post data
+        String jsonString = '{"title": "' + title + '", "body": "' + body + '", "userId": ' + userId + '}';
         // 5. Set the request body
+        req.setBody(body);
         // 6. Send the request and get the response
+        Http h = new Http();
+        HttpResponse res = h.send(req);
         // 7. Return the response body as string
-        return null;
+        if (res.getStatusCode() >= 200 || res.getStatusCode() <= 299) {
+            System.debug('***Successful POST request');
+            System.debug('***Response Body: ' + res.getBody());
+        } else {
+            System.debug('***Failed POST request ' + res.getStatusCode());
+        }
+        return res.getBody();
     }
     
     /**
@@ -49,13 +68,26 @@ public class JSONPlaceholderExercise {
     public static String updatePost(Integer postId, String title, String body, Integer userId) {
         // TODO: Student Implementation
         // 1. Create a new HTTP request
-        // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId
+        HttpRequest req = new HttpRequest();
+        // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId 
+        req.setEndpoint(BASE_URL + '/posts/' + postId);
         // 3. Set the HTTP method to 'PUT'
+        req.setMethod('PUT');
         // 4. Create a JSON string with the updated post data
+        String jsonString = '{"postId": "' + postId + '", "title": "' + title + '", "body": "' + body + '", "userId": ' + userId + '}';
         // 5. Set the request body
+        req.setBody(jsonString);
         // 6. Send the request and get the response
+        Http h = new Http();
+        HttpResponse res = h.send(req);
         // 7. Return the response body as string
-        return null;
+        if (res.getStatusCode() >= 200 || res.getStatusCode() <= 299) {
+            System.debug('***Successful PUT request');
+            System.debug('***Response Body: ' + res.getBody());
+        } else {
+            System.debug('***Failed PUT request ' + res.getStatusCode());
+        }
+        return res.getBody();
     }
     
     /**
@@ -68,13 +100,26 @@ public class JSONPlaceholderExercise {
     public static String patchPostTitle(Integer postId, String title) {
         // TODO: Student Implementation
         // 1. Create a new HTTP request
+        HttpRequest req = new HttpRequest();
         // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId
+        req.setEndpoint(BASE_URL + '/posts/' + postId);
         // 3. Set the HTTP method to 'PATCH'
+        req.setMethod('PATCH');
         // 4. Create a JSON string with only the title
+        String jsonString = '{"title": "' + title + '"}';
         // 5. Set the request body
+        req.setBody(jsonString);
         // 6. Send the request and get the response
+        Http h = new Http();
+        HttpResponse res = h.send(req);
         // 7. Return the response body as string
-        return null;
+        if (res.getStatusCode() >= 200 || res.getStatusCode() <= 299) {
+            System.debug('***Successful PATCH request');
+            System.debug('***Response Body: ' + res.getBody());
+        } else {
+            System.debug('***Failed PATCH request ' + res.getStatusCode());
+        }
+        return res.getBody();
     }
     
     /**
@@ -86,10 +131,15 @@ public class JSONPlaceholderExercise {
     public static Integer deletePost(Integer postId) {
         // TODO: Student Implementation
         // 1. Create a new HTTP request
+        HttpRequest req = new HttpRequest();
         // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId
+        req.setEndpoint(BASE_URL + '/posts/' + postId);
         // 3. Set the HTTP method to 'DELETE'
+        req.setMethod('DELETE');
         // 4. Send the request and get the response
+        Http h = new Http();
+        HttpResponse res = h.send(req);
         // 5. Return the response status code
-        return null;
+        return res.getStatusCode();
     }
 } 
